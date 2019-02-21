@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     private Vector2 targetPos;
-    public float YIncrement;
+    public float yIncrement;
 
     public float speed;
     public float maxHeight;
@@ -34,11 +34,11 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.UpArrow) && transform.position.y < maxHeight)
         {
-            Move(YIncrement);
+            Move(yIncrement);
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow) && transform.position.y > minHeight)
         {
-            Move(-YIncrement);
+            Move(-yIncrement);
         }
     }
 
