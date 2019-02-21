@@ -13,23 +13,20 @@ public class Player : MonoBehaviour
     public float maxHeight;
     public float minHeight;
 
-    public int health = 3;
+    private int health = 3;
 
     public GameObject effect;
     public Text healthDisplay;
 
     public GameObject gameOver;
 
-    void Update()
+    private void Start()
     {
-        healthDisplay.text = health.ToString();
+        UpdateHealthUI();
+    }
 
-        if(health <= 0)
-        {
-            gameOver.SetActive(true);
-            Destroy(gameObject);
-        }
-
+    void Update()
+    {     
         transform.position = Vector2.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
 
         if (Input.GetKeyDown(KeyCode.UpArrow) && transform.position.y < maxHeight)
@@ -40,6 +37,25 @@ public class Player : MonoBehaviour
         {
             Move(-yIncrement);
         }
+    }
+
+    public void DealDamage(int amount)
+    {
+        int newHealth = health - amount;
+        health = Mathf.Max(newHealth, 0);
+
+        if (health <= 0)
+        {
+            gameOver.SetActive(true);
+            Destroy(gameObject);
+        }
+
+        UpdateHealthUI();
+    }
+
+    private void UpdateHealthUI()
+    {
+        healthDisplay.text = health.ToString();
     }
 
     private void Move(float yIncrement)
