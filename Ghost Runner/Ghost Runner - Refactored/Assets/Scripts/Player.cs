@@ -7,22 +7,18 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    private Vector2 targetPos;
+    
     public Transform topLocation;
     public Transform middleLocation;
     public Transform bottomLocation;
-
     public float speed;
-    public float maxHeight;
-    public float minHeight;
-
-    private int health = 3;
-    private PositionState positionState;
-
     public GameObject effect;
     public Text healthDisplay;
-
     public GameObject gameOver;
+
+    private Vector2 targetPos;
+    private int health = 3;
+    private PositionState positionState;
 
     private void Start()
     {
