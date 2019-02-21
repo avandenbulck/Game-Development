@@ -34,14 +34,18 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.UpArrow) && transform.position.y < maxHeight)
         {
-            PlayParticleEffect();
-            targetPos = new Vector2(transform.position.x, transform.position.y + YIncrement);
+            Move(YIncrement);
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow) && transform.position.y > minHeight)
         {
-            PlayParticleEffect();
-            targetPos = new Vector2(transform.position.x, transform.position.y - YIncrement);
+            Move(-YIncrement);
         }
+    }
+
+    private void Move(float yIncrement)
+    {
+        PlayParticleEffect();
+        targetPos = new Vector2(transform.position.x, transform.position.y + yIncrement);
     }
 
     private void PlayParticleEffect()
