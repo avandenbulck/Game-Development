@@ -2,8 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -13,30 +11,39 @@ public class Player : MonoBehaviour
     public Transform bottomLocation;
     public float speed;
     public GameObject effect;
-    public Text healthDisplay;
+
     public GameObject gameOver;
 
     private Vector2 targetPos;
     private int health = 3;
     private PositionState positionState;
 
-    private void Start()
+    public delegate void OnHealthChanged(int newHealth);
+    public event OnHealthChanged OnHealthChangedEvent;
+
+    void Start()
     {
-        UpdateHealthUI();
         positionState = PositionState.Middle;
+        OnHealthChangedEvent.Invoke(health);
     }
 
     void Update()
-    {     
+    {
         transform.position = Vector2.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
+    }
 
-        if (Input.GetKeyDown(KeyCode.UpArrow) && positionState != PositionState.Top)
+    public void Move(MoveAction moveAction)
+    {  
+        if(health > 0)
         {
-            Move(positionState + 1);
-        }
-        else if (Input.GetKeyDown(KeyCode.DownArrow) && positionState != PositionState.Bottom)
-        {
-            Move(positionState - 1);
+            if (moveAction == MoveAction.Up && positionState != PositionState.Top)
+            {
+                Move(positionState + 1);
+            }
+            else if (moveAction == MoveAction.Down && positionState != PositionState.Bottom)
+            {
+                Move(positionState - 1);
+            }
         }
     }
 
@@ -76,19 +83,19 @@ public class Player : MonoBehaviour
         if (health <= 0)
         {
             gameOver.SetActive(true);
-            Destroy(gameObject);
+            this.gameObject.SetActive(false);
         }
 
-        UpdateHealthUI();
-    }
-
-    private void UpdateHealthUI()
-    {
-        healthDisplay.text = health.ToString();
+        OnHealthChangedEvent.Invoke(health);
     }
 
     public enum PositionState
     {
         Bottom, Middle, Top
+    }
+
+    public enum MoveAction
+    {
+        Up, Down
     }
 }
