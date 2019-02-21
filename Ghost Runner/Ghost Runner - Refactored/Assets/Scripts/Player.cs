@@ -34,13 +34,18 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.UpArrow) && transform.position.y < maxHeight)
         {
-            Instantiate(effect, transform.position, Quaternion.identity);
+            PlayParticleEffect();
             targetPos = new Vector2(transform.position.x, transform.position.y + YIncrement);
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow) && transform.position.y > minHeight)
         {
-            Instantiate(effect, transform.position, Quaternion.identity);
+            PlayParticleEffect();
             targetPos = new Vector2(transform.position.x, transform.position.y - YIncrement);
         }
+    }
+
+    private void PlayParticleEffect()
+    {
+        Instantiate(effect, transform.position, Quaternion.identity);
     }
 }
