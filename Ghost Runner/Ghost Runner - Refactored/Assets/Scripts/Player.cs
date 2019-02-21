@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,13 +8,16 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     private Vector2 targetPos;
-    public float yIncrement;
+    public Transform topLocation;
+    public Transform middleLocation;
+    public Transform bottomLocation;
 
     public float speed;
     public float maxHeight;
     public float minHeight;
 
     private int health = 3;
+    private PositionState positionState;
 
     public GameObject effect;
     public Text healthDisplay;
@@ -23,20 +27,49 @@ public class Player : MonoBehaviour
     private void Start()
     {
         UpdateHealthUI();
+        positionState = PositionState.Middle;
     }
 
     void Update()
     {     
         transform.position = Vector2.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
 
-        if (Input.GetKeyDown(KeyCode.UpArrow) && transform.position.y < maxHeight)
+        if (Input.GetKeyDown(KeyCode.UpArrow) && positionState != PositionState.Top)
         {
-            Move(yIncrement);
+            Move(positionState + 1);
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow) && transform.position.y > minHeight)
+        else if (Input.GetKeyDown(KeyCode.DownArrow) && positionState != PositionState.Bottom)
         {
-            Move(-yIncrement);
+            Move(positionState - 1);
         }
+    }
+
+    private void Move(PositionState newPositionState)
+    {       
+        switch (newPositionState)
+        {
+            case PositionState.Top:
+                Move(topLocation.position);
+                break;
+            case PositionState.Middle:
+                Move(middleLocation.position);
+                break;
+            case PositionState.Bottom:
+                Move(bottomLocation.position);
+                break;
+        }
+        positionState = newPositionState;
+    }
+
+    private void Move(Vector2 newPosition)
+    {
+        PlayParticleEffect();
+        targetPos = newPosition;
+    }
+
+    private void PlayParticleEffect()
+    {
+        Instantiate(effect, transform.position, Quaternion.identity);
     }
 
     public void DealDamage(int amount)
@@ -58,14 +91,8 @@ public class Player : MonoBehaviour
         healthDisplay.text = health.ToString();
     }
 
-    private void Move(float yIncrement)
+    public enum PositionState
     {
-        PlayParticleEffect();
-        targetPos = new Vector2(transform.position.x, transform.position.y + yIncrement);
-    }
-
-    private void PlayParticleEffect()
-    {
-        Instantiate(effect, transform.position, Quaternion.identity);
+        Bottom, Middle, Top
     }
 }
