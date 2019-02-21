@@ -433,9 +433,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstaclePatterns:
   - {fileID: 3623915298321161900, guid: 3b7f7ce42f8bcb041a770d7a8a38b12a, type: 3}
-  - {fileID: 5203403187372680528, guid: 4a1fdacd32f013245ab74ea492def125, type: 3}
-  - {fileID: 5203403187372680528, guid: 4dce322b8c364de4189700df220d685e, type: 3}
-  startTimeBtwSpawn: 1.25
+  - {fileID: 7609169679016985418, guid: caa3e4420ec145d4aa3791aaada3b24d, type: 3}
+  - {fileID: 5471479749207299916, guid: 886f32bda5995de4788efd0575e13fbd, type: 3}
+  timeBtwnSpawns: 1.25
   decreaseTime: 0.05
   minTime: 0.65
 --- !u!4 &178621280
@@ -2166,8 +2166,6 @@ MonoBehaviour:
   middleLocation: {fileID: 2125055304}
   bottomLocation: {fileID: 374363718}
   speed: 100
-  maxHeight: 3.5
-  minHeight: -3.5
   effect: {fileID: 2335476549005721346, guid: 7b0e2d9edef1f8b429a975692ccff925, type: 3}
   healthDisplay: {fileID: 1354884582}
   gameOver: {fileID: 1629004859}

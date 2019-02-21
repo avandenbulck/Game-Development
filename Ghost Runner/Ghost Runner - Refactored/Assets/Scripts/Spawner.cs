@@ -6,26 +6,28 @@ public class Spawner : MonoBehaviour
 {
     public GameObject[] obstaclePatterns;
 
-    private float timeBtwnSpawn;
-    public float startTimeBtwSpawn;
+    public float timeBtwnSpawns;
     public float decreaseTime;
     public float minTime = 0.65f;
 
-    private void Update()
+    void Start()
     {
-        if(timeBtwnSpawn <= 0)
-        {
+        StartCoroutine(SpawnObstacle());
+    }
+
+    private IEnumerator SpawnObstacle()
+    {
+        while (true)
+        { 
+            if (timeBtwnSpawns > minTime)
+            {
+                timeBtwnSpawns -= decreaseTime;
+            }
+
             int rand = Random.Range(0, obstaclePatterns.Length);
             Instantiate(obstaclePatterns[rand], transform.position, Quaternion.identity);
-            timeBtwnSpawn = startTimeBtwSpawn;
-            if(startTimeBtwSpawn > minTime)
-            {
-                startTimeBtwSpawn -= decreaseTime;
-            }
-        }
-        else
-        {
-            timeBtwnSpawn -= Time.deltaTime;
-        }
+
+            yield return new WaitForSeconds(timeBtwnSpawns);
+        }  
     }
 }
