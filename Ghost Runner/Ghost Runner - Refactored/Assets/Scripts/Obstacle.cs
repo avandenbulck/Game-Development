@@ -17,7 +17,7 @@ public class Obstacle : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.tag.Equals("Player"))
         {
             Instantiate(explosionSound, transform.position, Quaternion.identity);
             Instantiate(effect, transform.position, Quaternion.identity);
