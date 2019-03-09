@@ -8,7 +8,6 @@ public class Obstacle : MonoBehaviour
     public float speed;
 
     public GameObject effect;
-    public GameObject explosionSound;
 
     private void Update()
     {
@@ -19,7 +18,7 @@ public class Obstacle : MonoBehaviour
     {
         if (other.tag.Equals("Player"))
         {
-            Instantiate(explosionSound, transform.position, Quaternion.identity);
+            AudioManager.instance.PlayExplosionSound();
             Instantiate(effect, transform.position, Quaternion.identity);
 
             Player player = other.GetComponent<Player>();
