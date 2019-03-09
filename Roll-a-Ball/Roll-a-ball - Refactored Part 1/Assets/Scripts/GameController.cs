@@ -10,9 +10,8 @@ public class GameController : MonoBehaviour
     public PlayerController playerController;
     public int scoreToWin;
     
-    public delegate void OnCountChanged(int newCount);
-    public event OnCountChanged OnCountChangedEvent;
-    public UnityEvent OnWinEvent; //Alternative to the above delegate/event approach;
+    public event Action<int> OnCountChangedEvent;
+    public UnityEvent OnWinEvent; //Alternative to the above event/Action approach;
 
     private int count;
     private GameState gameState;

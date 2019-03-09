@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
     public float speed;
-    public delegate void OnCollision();
-    public event OnCollision OnCollisionEvent;
+    public event Action OnCollisionEvent;
 
     private Rigidbody rb;
 
