@@ -1,12 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
     public int score;
-    public delegate void OnScoreChanged(int newScore);
-    public event OnScoreChanged OnScoreChangedEvent;
+    public event Action<int> OnScoreChangedEvent;
 
     private void Start()
     {

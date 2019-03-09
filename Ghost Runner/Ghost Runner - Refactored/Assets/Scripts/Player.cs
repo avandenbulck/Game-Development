@@ -18,8 +18,7 @@ public class Player : MonoBehaviour
     private int health = 3;
     private PositionState positionState;
 
-    public delegate void OnHealthChanged(int newHealth);
-    public event OnHealthChanged OnHealthChangedEvent;
+    public event Action<int> OnHealthChangedEvent;
 
     void Start()
     {
